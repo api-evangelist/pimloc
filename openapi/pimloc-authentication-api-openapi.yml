@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Secure Redact Account Authentication API
+  version: v3
+  x-generated: '2026-07-20'
+  x-method: searched
+  x-source: https://docs.secureredact.co.uk (public Postman collection "Secure Redact API - v3")
+  description: 'Secure Redact is Pimloc''s AI-powered platform for automated redaction of personally identifiable information (PII) from video, audio, images and documents — blurring faces, license plates, screens, text and full bodies. The v3 REST API lets you upload media by URL or file, monitor processing via status callbacks (webhooks) or polling, trigger redaction, and download the redacted media and audio transcripts. Two flows are supported: a Standard Flow (fully automated, no UI) and an Enterprise Flow (review/edit in the Secure Redact UI, with projects and users). Authentication is a token exchange: HTTP Basic (client_id / client_secret) on the token endpoint returns a short-lived JWT bearer token used on all other endpoints.'
+  contact:
+    name: Secure Redact Support
+    url: https://www.secureredact.ai/contact-us
+  termsOfService: https://www.secureredact.ai/terms-of-service
+servers:
+- url: https://app.secureredact.co.uk
+  description: Secure Redact v3 production API
+tags:
+- name: Authentication
+  description: Token exchange and user session
+paths:
+  /api/v3/token:
+    get:
+      operationId: fetchToken
+      tags:
+      - Authentication
+      summary: Fetch token
+      description: Exchange your client_id / client_secret (sent as HTTP Basic auth) for a short-lived JWT access token used to authenticate all other requests. Optionally pass a username to obtain a user access token (Enterprise Flow).
+      security:
+      - basicAuth: []
+      parameters:
+      - name: username
+        in: query
+        required: false
+        description: Optional username to fetch a user-scoped access token (Enterprise Flow).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type:
+                    - string
+                    - 'null'
+                  token:
+                    type: string
+                    description: JWT access token
+        '403':
+          description: Invalid auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v3/signup:
+    post:
+      operationId: createUser
+      tags:
+      - Authentication
+      summary: Create user
+      description: Add a new user to Secure Redact. Enterprise customers only.
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Optional unique identifier; randomly generated if not provided.
+      responses:
+        '200':
+          description: User created
+        '500':
+          description: User with that username exists in a different account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v3/login:
+    post:
+      operationId: loginUser
+      tags:
+      - Authentication
+      summary: Login user
+      description: Log a user into the Secure Redact platform. Enterprise customers only.
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Logged in
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard error envelope — a single string error message.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message; null on success.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic using client_id (username) and client_secret (password), only on /api/v3/token.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived JWT access token returned by /api/v3/token.

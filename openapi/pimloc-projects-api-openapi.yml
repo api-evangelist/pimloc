@@ -1,0 +1,205 @@
+openapi: 3.1.0
+info:
+  title: Secure Redact Account Projects API
+  version: v3
+  x-generated: '2026-07-20'
+  x-method: searched
+  x-source: https://docs.secureredact.co.uk (public Postman collection "Secure Redact API - v3")
+  description: 'Secure Redact is Pimloc''s AI-powered platform for automated redaction of personally identifiable information (PII) from video, audio, images and documents — blurring faces, license plates, screens, text and full bodies. The v3 REST API lets you upload media by URL or file, monitor processing via status callbacks (webhooks) or polling, trigger redaction, and download the redacted media and audio transcripts. Two flows are supported: a Standard Flow (fully automated, no UI) and an Enterprise Flow (review/edit in the Secure Redact UI, with projects and users). Authentication is a token exchange: HTTP Basic (client_id / client_secret) on the token endpoint returns a short-lived JWT bearer token used on all other endpoints.'
+  contact:
+    name: Secure Redact Support
+    url: https://www.secureredact.ai/contact-us
+  termsOfService: https://www.secureredact.ai/terms-of-service
+servers:
+- url: https://app.secureredact.co.uk
+  description: Secure Redact v3 production API
+tags:
+- name: Projects
+  description: Enterprise project and user management
+paths:
+  /api/v3/project:
+    get:
+      operationId: listProjects
+      tags:
+      - Projects
+      summary: Fetch projects
+      description: Fetch a list of projects available to the user.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: page_num
+        in: query
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Project list
+    post:
+      operationId: createProject
+      tags:
+      - Projects
+      summary: Create project
+      description: Create a new project.
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the project.
+      responses:
+        '200':
+          description: Project created
+  /api/v3/project/{project_id}:
+    delete:
+      operationId: deleteProject
+      tags:
+      - Projects
+      summary: Delete project
+      description: Delete a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Deletion accepted
+  /api/v3/project/{project_id}/media:
+    get:
+      operationId: listProjectMedia
+      tags:
+      - Projects
+      summary: Fetch project medias
+      description: Fetch the media belonging to a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page_num
+        in: query
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Project media list
+  /api/v3/project/{project_id}/audit:
+    get:
+      operationId: fetchProjectAudit
+      tags:
+      - Projects
+      summary: Fetch project audit
+      description: Fetch the audit log for a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Project audit log
+  /api/v3/project/{project_id}/user:
+    get:
+      operationId: listProjectUsers
+      tags:
+      - Projects
+      summary: Fetch project users
+      description: List the users of a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Project users
+    post:
+      operationId: addUserToProject
+      tags:
+      - Projects
+      summary: Add user to project
+      description: Add a user to a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User added
+    delete:
+      operationId: removeUserFromProject
+      tags:
+      - Projects
+      summary: Remove user from project
+      description: Remove a user from a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: User removed
+  /api/v3/project/{project_id}/status:
+    patch:
+      operationId: setProjectStatus
+      tags:
+      - Projects
+      summary: Set project status
+      description: Update the status of a project.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Status updated
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic using client_id (username) and client_secret (password), only on /api/v3/token.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived JWT access token returned by /api/v3/token.

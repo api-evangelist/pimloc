@@ -1,0 +1,82 @@
+asyncapi: 3.0.0
+info:
+  title: Secure Redact Media Callbacks
+  version: v3
+  description: >-
+    Secure Redact processes media asynchronously. When a state_callback and/or
+    export_callback URL is supplied on upload, the platform POSTs event payloads
+    to those URLs as media moves through the redaction workflow. This document
+    describes those webhook callbacks.
+  x-generated: '2026-07-20'
+  x-method: searched
+  x-source: https://docs.secureredact.co.uk
+defaultContentType: application/json
+channels:
+  stateCallback:
+    address: '{state_callback_url}'
+    description: >-
+      Consumer-hosted URL supplied as state_callback on upload. Secure Redact
+      periodically POSTs media progress/status updates to it.
+    parameters:
+      state_callback_url:
+        description: The state_callback URL provided when the media was uploaded.
+    messages:
+      mediaStateUpdate:
+        $ref: '#/components/messages/mediaStateUpdate'
+  exportCallback:
+    address: '{export_callback_url}'
+    description: >-
+      Consumer-hosted URL supplied as export_callback on upload. Secure Redact
+      POSTs the exported media info once redaction completes. Requests are
+      authenticated with the export_token supplied on upload.
+    parameters:
+      export_callback_url:
+        description: The export_callback URL provided when the media was uploaded.
+    messages:
+      mediaExportComplete:
+        $ref: '#/components/messages/mediaExportComplete'
+operations:
+  receiveStateUpdate:
+    action: receive
+    channel:
+      $ref: '#/channels/stateCallback'
+    summary: Receive a media progress/status update.
+  receiveExportComplete:
+    action: receive
+    channel:
+      $ref: '#/channels/exportCallback'
+    summary: Receive the export/completed notification for a media item.
+components:
+  messages:
+    mediaStateUpdate:
+      name: mediaStateUpdate
+      title: Media state update
+      contentType: application/json
+      payload:
+        type: object
+        description: Progress message indicating the media's current workflow state.
+        properties:
+          media_id: { type: string }
+          status:
+            type: string
+            description: Current workflow state (e.g. detected, completed).
+    mediaExportComplete:
+      name: mediaExportComplete
+      title: Media export complete
+      contentType: application/json
+      payload:
+        type: object
+        description: Notification that redaction/export has completed and media is downloadable.
+        properties:
+          media_id: { type: string }
+          status: { type: string, example: completed }
+
+# --- API Evangelist provenance -------------------------------------------
+x-superseded-by:
+  reason: >-
+    Provider publishes this event surface themselves in as-published OpenAPI; this document was authored by API Evangelist before that source was harvested.
+  published_spec: all/pimloc/openapi/_original/secureredact-openapi.yml
+  published_event_object: webhooks
+  published_events: 2
+  status: superseded
+  reviewed: '2026-07-31'

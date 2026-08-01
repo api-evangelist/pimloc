@@ -1,8 +1,36 @@
 aid: pimloc
 name: Pimloc
-description: Pimloc is a company surfaced as a portfolio company of speedinvest and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Pimloc is a UK-based AI company whose Secure Redact platform automates the
+  redaction and anonymization of personally identifiable information (PII) in
+  video, audio, images and documents — blurring faces, license plates, screens,
+  on-screen text and full bodies with high accuracy. Used across law enforcement,
+  local government, transport, insurance, healthcare, education and retail to
+  meet GDPR, CCPA, HIPAA, FOIA and DSAR obligations, Secure Redact offers a
+  browser SaaS and a v3 REST API. The API supports a fully automated Standard
+  Flow (upload by URL, process, download) and an Enterprise Flow (review and edit
+  in the UI, with projects, users and audit/chain-of-custody trails), plus audio
+  transcription, video search and webhook callbacks. Pimloc is backed by
+  Speedinvest.
 url: https://raw.githubusercontent.com/api-evangelist/pimloc/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.secureredact.ai/favicon.ico
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,10 +39,163 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Privacy
+- Video Redaction
+- Anonymization
+- PII
+- Data Protection
+- Artificial Intelligence
+- Compliance
+- Video Analytics
+apis:
+- aid: pimloc:pimloc-account-api
+  name: Pimloc Account API
+  description: Account information
+  humanURL: https://www.secureredact.ai/apis
+  baseURL: https://app.secureredact.co.uk
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/pimloc-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.secureredact.co.uk
+  - type: APIReference
+    url: https://docs.secureredact.co.uk
+  - type: GettingStarted
+    url: https://www.secureredact.ai/apis
+  - type: AsyncAPI
+    url: asyncapi/pimloc-secureredact-asyncapi.yml
+  - type: Authentication
+    url: authentication/pimloc-authentication.yml
+- aid: pimloc:pimloc-authentication-api
+  name: Pimloc Authentication API
+  description: Token exchange and user session
+  humanURL: https://www.secureredact.ai/apis
+  baseURL: https://app.secureredact.co.uk
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/pimloc-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.secureredact.co.uk
+  - type: APIReference
+    url: https://docs.secureredact.co.uk
+  - type: GettingStarted
+    url: https://www.secureredact.ai/apis
+  - type: AsyncAPI
+    url: asyncapi/pimloc-secureredact-asyncapi.yml
+  - type: Authentication
+    url: authentication/pimloc-authentication.yml
+- aid: pimloc:pimloc-media-api
+  name: Pimloc Media API
+  description: Upload, redact, download and manage media
+  humanURL: https://www.secureredact.ai/apis
+  baseURL: https://app.secureredact.co.uk
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/pimloc-media-api-openapi.yml
+  - type: Documentation
+    url: https://docs.secureredact.co.uk
+  - type: APIReference
+    url: https://docs.secureredact.co.uk
+  - type: GettingStarted
+    url: https://www.secureredact.ai/apis
+  - type: AsyncAPI
+    url: asyncapi/pimloc-secureredact-asyncapi.yml
+  - type: Authentication
+    url: authentication/pimloc-authentication.yml
+- aid: pimloc:pimloc-projects-api
+  name: Pimloc Projects API
+  description: Enterprise project and user management
+  humanURL: https://www.secureredact.ai/apis
+  baseURL: https://app.secureredact.co.uk
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/pimloc-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.secureredact.co.uk
+  - type: APIReference
+    url: https://docs.secureredact.co.uk
+  - type: GettingStarted
+    url: https://www.secureredact.ai/apis
+  - type: AsyncAPI
+    url: asyncapi/pimloc-secureredact-asyncapi.yml
+  - type: Authentication
+    url: authentication/pimloc-authentication.yml
+common:
+- type: AgenticAccess
+  url: agentic-access/pimloc-agentic-access.yml
+- type: DomainSecurity
+  url: security/pimloc-domain-security.yml
+- type: DeveloperPortal
+  url: https://docs.secureredact.co.uk
+- type: Documentation
+  url: https://www.secureredact.ai/documentation
+- type: APIReference
+  url: https://docs.secureredact.co.uk
+- type: GettingStarted
+  url: https://www.secureredact.ai/apis
+- type: Website
+  url: https://www.secureredact.ai
+- type: Support
+  url: https://www.secureredact.ai/contact-us
+- type: Blog
+  url: https://www.secureredact.ai/articles
+- type: Pricing
+  url: https://www.secureredact.ai/pricing
+- type: SignUp
+  url: https://app.secureredact.co.uk/signup
+- type: Login
+  url: https://app.secureredact.co.uk/app
+- type: TermsOfService
+  url: https://www.secureredact.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.secureredact.ai/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/pimloc
+- type: Integrations
+  url: https://www.secureredact.ai/integrations
+- type: Authentication
+  url: authentication/pimloc-authentication.yml
+- type: Conventions
+  url: conventions/pimloc-conventions.yml
+- type: ErrorCatalog
+  url: errors/pimloc-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/pimloc-lifecycle.yml
+- type: Conformance
+  url: conformance/pimloc-conformance.yml
+- type: Compliance
+  url: https://www.secureredact.ai/
+- type: Packages
+  url: packages/pimloc-packages.yml
+- type: SDKs
+  url: packages/pimloc-packages.yml
+- type: MCPServer
+  url: mcp/pimloc-mcp.yml
+- type: LLMsTxt
+  url: llms/pimloc-llms.txt
+- type: Overlay
+  url: overlays/pimloc-secureredact-overlay.yaml
+- type: DataModel
+  url: data-model/pimloc-data-model.yml
+- type: Sandbox
+  url: sandbox/pimloc-sandbox.yml
+- type: AsyncAPI
+  url: asyncapi/pimloc-secureredact-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/pimloc-secureredact-asyncapi.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

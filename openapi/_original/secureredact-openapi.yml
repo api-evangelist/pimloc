@@ -1,0 +1,432 @@
+openapi: 3.1.0
+info:
+  title: Secure Redact API
+  version: v3
+  x-generated: '2026-07-20'
+  x-method: searched
+  x-source: https://docs.secureredact.co.uk (public Postman collection "Secure Redact API - v3")
+  description: >-
+    Secure Redact is Pimloc's AI-powered platform for automated redaction of
+    personally identifiable information (PII) from video, audio, images and
+    documents — blurring faces, license plates, screens, text and full bodies.
+    The v3 REST API lets you upload media by URL or file, monitor processing via
+    status callbacks (webhooks) or polling, trigger redaction, and download the
+    redacted media and audio transcripts. Two flows are supported: a Standard
+    Flow (fully automated, no UI) and an Enterprise Flow (review/edit in the
+    Secure Redact UI, with projects and users). Authentication is a token
+    exchange: HTTP Basic (client_id / client_secret) on the token endpoint
+    returns a short-lived JWT bearer token used on all other endpoints.
+  contact:
+    name: Secure Redact Support
+    url: https://www.secureredact.ai/contact-us
+  termsOfService: https://www.secureredact.ai/terms-of-service
+servers:
+  - url: https://app.secureredact.co.uk
+    description: Secure Redact v3 production API
+tags:
+  - name: Authentication
+    description: Token exchange and user session
+  - name: Media
+    description: Upload, redact, download and manage media
+  - name: Projects
+    description: Enterprise project and user management
+  - name: Account
+    description: Account information
+paths:
+  /api/v3/token:
+    get:
+      operationId: fetchToken
+      tags: [Authentication]
+      summary: Fetch token
+      description: >-
+        Exchange your client_id / client_secret (sent as HTTP Basic auth) for a
+        short-lived JWT access token used to authenticate all other requests.
+        Optionally pass a username to obtain a user access token (Enterprise Flow).
+      security:
+        - basicAuth: []
+      parameters:
+        - name: username
+          in: query
+          required: false
+          description: Optional username to fetch a user-scoped access token (Enterprise Flow).
+          schema: { type: string }
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: { type: [string, 'null'] }
+                  token: { type: string, description: JWT access token }
+        '403':
+          description: Invalid auth
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /api/v3/signup:
+    post:
+      operationId: createUser
+      tags: [Authentication]
+      summary: Create user
+      description: Add a new user to Secure Redact. Enterprise customers only.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Optional unique identifier; randomly generated if not provided.
+      responses:
+        '200': { description: User created }
+        '500':
+          description: User with that username exists in a different account
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /api/v3/login:
+    post:
+      operationId: loginUser
+      tags: [Authentication]
+      summary: Login user
+      description: Log a user into the Secure Redact platform. Enterprise customers only.
+      security:
+        - bearerAuth: []
+      responses:
+        '200': { description: Logged in }
+  /api/v3/media:
+    get:
+      operationId: listMedia
+      tags: [Media]
+      summary: Fetch medias
+      description: Fetch a paginated list of media available to the user.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: page_num, in: query, schema: { type: integer }, description: Page number }
+        - { name: page_size, in: query, schema: { type: integer }, description: Items per page }
+      responses:
+        '200': { description: Media list }
+    post:
+      operationId: uploadMedia
+      tags: [Media]
+      summary: Upload media
+      description: >-
+        Add a video/image to the account either by a URL that Secure Redact can
+        download from (e.g. an AWS S3 presigned URL) via form field media_path,
+        or by uploading raw file data (multipart). Detection flags control which
+        object classes are detected/redacted; state_callback and export_callback
+        are webhook URLs the platform POSTs progress and export events to.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [media_path]
+              properties:
+                media_path: { type: string, description: URL Secure Redact can download the media from (e.g. S3 presigned URL). }
+                video_tag: { type: string, description: Name shown for the media in the UI. }
+                increased_detection_accuracy: { type: boolean, description: Slower but detects smaller objects. Defaults to false. }
+                state_callback: { type: string, description: Webhook URL the system POSTs progress updates to. }
+                export_callback: { type: string, description: Webhook URL the exported media info is POSTed to after redaction. }
+                export_token: { type: string, description: Token authenticating requests made to export_callback. }
+                detect_license_plates: { type: boolean }
+                detect_faces: { type: boolean }
+                transcribe_audio: { type: boolean }
+                project_id: { type: string, description: Project to upload the media to (Enterprise only). }
+                sha512: { type: string, description: Optional sha512 hash used to verify the received media matches. }
+                detect_screens: { type: boolean }
+                detect_text: { type: boolean }
+                detect_people: { type: boolean }
+                detect_search: { type: boolean, description: Index the media for free-form text search. }
+                transcribe_language: { type: string, description: ISO 639 language code to transcribe from into English. }
+                default_redact: { type: boolean, description: Default all detections to redacted. }
+                investigate: { type: boolean }
+                fast_investigate: { type: boolean }
+          multipart/form-data:
+            schema:
+              type: object
+              required: [video]
+              properties:
+                video: { type: string, format: binary, description: Raw file data uploaded directly. }
+      responses:
+        '200': { description: Media accepted for processing }
+  /api/v3/media/{media_id}:
+    get:
+      operationId: fetchMediaInfo
+      tags: [Media]
+      summary: Fetch media info
+      description: >-
+        Get the status of a media item — which stage of the workflow it is in
+        (e.g. uploaded, detected, completed).
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Media status }
+    delete:
+      operationId: deleteMedia
+      tags: [Media]
+      summary: Delete media
+      description: Delete the media from the Secure Redact servers.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '202': { description: Deletion accepted }
+  /api/v3/media/{media_id}/redact:
+    post:
+      operationId: redactMedia
+      tags: [Media]
+      summary: Redact media
+      description: >-
+        Trigger redaction of a media item (Enterprise Flow). Only valid once the
+        media status equals 'detected'.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                enlarge_boxes: { type: number, description: Float 0-1; percentage to enlarge all redaction boxes. }
+                redact_audio: { type: boolean, description: Whether to remove audio from redacted media. }
+                blur: { type: string, enum: [pixelated, blackout, smooth], description: Blur type to apply. }
+                blur_level: { type: integer, minimum: 0, maximum: 100, description: How much blur to apply (100 = most). }
+      responses:
+        '200': { description: Redaction started }
+  /api/v3/media/{media_id}/download:
+    get:
+      operationId: downloadMedia
+      tags: [Media]
+      summary: Download media
+      description: Download the media once its status is 'completed'.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+        - { name: version_id, in: query, schema: { type: string }, description: Specific version to download. }
+      responses:
+        '200': { description: Redacted media file }
+  /api/v3/media/{media_id}/audit:
+    get:
+      operationId: fetchMediaAudit
+      tags: [Media]
+      summary: Fetch media audit
+      description: Fetch the audit log of the media — all actions taken on it (chain of custody).
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Audit log }
+  /api/v3/media/{media_id}/transcript/download:
+    get:
+      operationId: downloadMediaTranscript
+      tags: [Media]
+      summary: Download media transcript
+      description: >-
+        Download the media transcript. Available once media state is at least
+        'detected' and transcribe_audio was true on upload.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+        - { name: redact_type, in: query, schema: { type: string }, description: Which transcript redaction to return. }
+        - { name: file_type, in: query, schema: { type: string }, description: Transcript file format. }
+      responses:
+        '200': { description: Transcript file }
+  /api/v3/media/{media_id}/publish:
+    post:
+      operationId: publishMedia
+      tags: [Media]
+      summary: Publish media
+      description: Beta — set the published state of the media to true.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: media_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Published }
+  /api/v3/project:
+    get:
+      operationId: listProjects
+      tags: [Projects]
+      summary: Fetch projects
+      description: Fetch a list of projects available to the user.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: page_num, in: query, schema: { type: integer } }
+        - { name: page_size, in: query, schema: { type: integer } }
+      responses:
+        '200': { description: Project list }
+    post:
+      operationId: createProject
+      tags: [Projects]
+      summary: Create project
+      description: Create a new project.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string, description: The name of the project. }
+      responses:
+        '200': { description: Project created }
+  /api/v3/project/{project_id}:
+    delete:
+      operationId: deleteProject
+      tags: [Projects]
+      summary: Delete project
+      description: Delete a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '202': { description: Deletion accepted }
+  /api/v3/project/{project_id}/media:
+    get:
+      operationId: listProjectMedia
+      tags: [Projects]
+      summary: Fetch project medias
+      description: Fetch the media belonging to a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+        - { name: page_num, in: query, schema: { type: integer } }
+        - { name: page_size, in: query, schema: { type: integer } }
+      responses:
+        '200': { description: Project media list }
+  /api/v3/project/{project_id}/audit:
+    get:
+      operationId: fetchProjectAudit
+      tags: [Projects]
+      summary: Fetch project audit
+      description: Fetch the audit log for a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Project audit log }
+  /api/v3/project/{project_id}/user:
+    get:
+      operationId: listProjectUsers
+      tags: [Projects]
+      summary: Fetch project users
+      description: List the users of a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Project users }
+    post:
+      operationId: addUserToProject
+      tags: [Projects]
+      summary: Add user to project
+      description: Add a user to a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: User added }
+    delete:
+      operationId: removeUserFromProject
+      tags: [Projects]
+      summary: Remove user from project
+      description: Remove a user from a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '202': { description: User removed }
+  /api/v3/project/{project_id}/status:
+    patch:
+      operationId: setProjectStatus
+      tags: [Projects]
+      summary: Set project status
+      description: Update the status of a project.
+      security:
+        - bearerAuth: []
+      parameters:
+        - { name: project_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Status updated }
+  /api/v3/account:
+    get:
+      operationId: fetchAccount
+      tags: [Account]
+      summary: Account info
+      description: Get account information, including the remaining processing minutes.
+      security:
+        - bearerAuth: []
+      responses:
+        '200': { description: Account info }
+webhooks:
+  stateCallback:
+    post:
+      operationId: stateCallbackEvent
+      summary: Media state callback
+      description: >-
+        If a state_callback URL was supplied on upload, Secure Redact
+        periodically POSTs media progress/status messages to it as the media
+        moves through the workflow (e.g. detected, completed).
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, description: Media state/progress event payload. }
+      responses:
+        '200': { description: Acknowledged }
+  exportCallback:
+    post:
+      operationId: exportCallbackEvent
+      summary: Export callback
+      description: >-
+        If an export_callback URL was supplied on upload, Secure Redact POSTs the
+        exported media info to it once redaction completes. Requests are
+        authenticated with the supplied export_token.
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, description: Export/completed event payload. }
+      responses:
+        '200': { description: Acknowledged }
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic using client_id (username) and client_secret (password), only on /api/v3/token.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived JWT access token returned by /api/v3/token.
+  schemas:
+    Error:
+      type: object
+      description: Standard error envelope — a single string error message.
+      properties:
+        error: { type: string, description: Human-readable error message; null on success. }

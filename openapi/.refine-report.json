@@ -1,0 +1,20 @@
+{
+  "provider": "pimloc",
+  "sources": [
+    "pimloc-account-api-openapi.yml",
+    "pimloc-authentication-api-openapi.yml",
+    "pimloc-media-api-openapi.yml",
+    "pimloc-projects-api-openapi.yml"
+  ],
+  "outputs": [
+    "pimloc-account-api-openapi.yml",
+    "pimloc-authentication-api-openapi.yml",
+    "pimloc-media-api-openapi.yml",
+    "pimloc-projects-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.secureredact.ai/trial-secure-redact-sample-video-and-audio-files
+test_data:
+  sample_media:
+    url: https://www.secureredact.ai/trial-secure-redact-sample-video-and-audio-files
+    description: >-
+      Secure Redact publishes sample video and audio files for trialling the
+      platform's redaction on representative media without using your own footage.
+  credentials:
+    note: >-
+      There is no separate sandbox host or test key prefix. API access uses live
+      client_id / client_secret from the Secure Redact account page against
+      app.secureredact.co.uk; accounts are metered in processing minutes.
+  free_trial:
+    signup: https://app.secureredact.co.uk/signup

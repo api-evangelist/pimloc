@@ -1,0 +1,21 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.secureredact.co.uk
+versioning:
+  scheme: uri-path
+  current: v3
+  docs: https://docs.secureredact.co.uk
+  previous:
+    version: v2
+    docs: https://docs.v2.secureredact.co.uk
+    note: Version 2 remains documented at its own docs host; no formal sunset date published.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation policy or RFC 8594 Sunset/Deprecation header support is documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: No public status page was found (status.secureredact.* did not resolve).
+deprecated_operations: []

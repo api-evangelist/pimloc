@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/secureredact-openapi.yml
+skills:
+  - file: pimloc-standard-flow-redact.md
+    name: Redact a video with Secure Redact (Standard Flow)
+    api: openapi/secureredact-openapi.yml
+    operations: [fetchToken, uploadMedia, fetchMediaInfo, downloadMedia]
+  - file: pimloc-transcribe-and-download.md
+    name: Transcribe audio and download a Secure Redact transcript
+    api: openapi/secureredact-openapi.yml
+    operations: [fetchToken, uploadMedia, fetchMediaInfo, downloadMediaTranscript]

@@ -1,0 +1,32 @@
+# Pimloc — Secure Redact
+
+> Pimloc's Secure Redact is an AI-powered platform for automated redaction of personally identifiable information (PII) from video, audio, images and documents — blurring faces, license plates, screens, text and full bodies. The v3 REST API supports a fully automated Standard Flow and a UI-based Enterprise Flow with projects, users and audit trails.
+
+## APIs
+
+- [Secure Redact API v3](https://docs.secureredact.co.uk): REST API for uploading media, triggering redaction, transcription, and downloading results. Base URL https://app.secureredact.co.uk
+- [API overview](https://www.secureredact.ai/apis): Product description of the Secure Redact APIs.
+
+## Specs
+
+- [OpenAPI (v3)](openapi/secureredact-openapi.yml): API Evangelist-derived OpenAPI from the published Postman collection.
+- [AsyncAPI (callbacks)](asyncapi/pimloc-secureredact-asyncapi.yml): state_callback and export_callback webhook events.
+
+## Auth
+
+- Token exchange: HTTP Basic (client_id / client_secret) on GET /api/v3/token returns a short-lived JWT bearer token used on all other endpoints. See [authentication](authentication/pimloc-authentication.yml).
+
+## SDKs
+
+- [JavaScript/TypeScript SDK](https://www.npmjs.com/package/@secure-redact/javascript-sdk): Official Pimloc-maintained npm package (@secure-redact/javascript-sdk).
+
+## Docs
+
+- [API Documentation](https://docs.secureredact.co.uk)
+- [Documentation](https://www.secureredact.ai/documentation)
+- [Integrations](https://www.secureredact.ai/integrations)
+- [Pricing](https://www.secureredact.ai/pricing)
+- [FAQs](https://www.secureredact.ai/faqs)
+- [Terms of Service](https://www.secureredact.ai/terms-of-service)
+- [Privacy Policy](https://www.secureredact.ai/privacy-policy)
+- [Contact / Support](https://www.secureredact.ai/contact-us)

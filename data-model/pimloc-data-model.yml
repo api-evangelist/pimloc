@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/secureredact-openapi.yml
+entities:
+  - name: Account
+    description: The customer account; carries the remaining processing minutes.
+  - name: User
+    description: A user within an account (Enterprise Flow). Created via signup.
+  - name: Project
+    description: An Enterprise grouping of media with its own users and audit log.
+  - name: Media
+    description: An uploaded video/image/audio item processed through the redaction workflow.
+    key_fields: [media_id, status, video_tag]
+  - name: Transcript
+    description: The audio transcript of a media item (when transcribe_audio was set).
+  - name: AuditEntry
+    description: A record of an action taken on a media item or project (chain of custody).
+relationships:
+  - from: Account
+    to: User
+    type: has_many
+  - from: Account
+    to: Project
+    type: has_many
+  - from: Project
+    to: Media
+    type: has_many
+    via: project_id
+  - from: Project
+    to: User
+    type: has_many
+  - from: User
+    to: Media
+    type: has_many
+  - from: Media
+    to: Transcript
+    type: has_one
+  - from: Media
+    to: AuditEntry
+    type: has_many
+  - from: Project
+    to: AuditEntry
+    type: has_many

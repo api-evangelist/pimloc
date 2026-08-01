@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.secureredact.ai/
+compliance_program:
+  published: true
+  source: https://www.secureredact.ai/
+  certifications:
+    - SOC 2 Type 2
+    - Cyber Essentials Plus
+  regulatory_alignment:
+    - GDPR
+    - CCPA
+    - HIPAA
+  data_residency:
+    - UK/EU processing
+    - US processing
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: Auth is HTTP Basic -> JWT bearer token exchange, not OAuth2.
+  - id: jwt
+    conforms: true
+    evidence: Access token issued by /api/v3/token is a JWT bearer token.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: "Errors use a flat { error: string } envelope, not application/problem+json."
+  - id: webhooks
+    conforms: true
+    evidence: state_callback and export_callback POST event callbacks on media processing.
+  - id: pagination
+    conforms: true
+    evidence: page_num / page_size query parameters on list endpoints.

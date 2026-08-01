@@ -1,0 +1,40 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.secureredact.co.uk
+authentication:
+  style: token-exchange (HTTP Basic -> JWT bearer)
+  detail: See authentication/pimloc-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header is documented. An optional sha512 form field on
+    upload lets the server verify received media integrity, but it is not a
+    request-idempotency key.
+pagination:
+  style: page-number
+  params: [page_num, page_size]
+  applies_to: [listMedia, listProjects, listProjectMedia]
+callbacks:
+  supported: true
+  detail: >-
+    Asynchronous processing is signalled via webhook callbacks supplied on
+    upload — state_callback (periodic progress/status POSTs) and export_callback
+    (final export/completed POST, authenticated with export_token). Polling via
+    fetchMediaInfo is the alternative. See asyncapi/pimloc-secureredact-asyncapi.yml.
+media_lifecycle_states:
+  - uploaded
+  - detected   # ready for review / redaction
+  - completed  # redaction finished, downloadable
+error_envelope:
+  shape: '{ "error": "<message>" }'
+  success_shape: '{ "error": null, ... }'
+  format: custom-string
+  note: Errors are a flat JSON object with a single string "error" field; not RFC 9457 problem+json.
+  detail: See errors/pimloc-problem-types.yml
+versioning:
+  scheme: uri-path
+  current: v3
+  legacy: { version: v2, docs: https://docs.v2.secureredact.co.uk }
+rate_limit_signaling:
+  documented: false
+  note: Account processing quota is exposed as remaining minutes via fetchAccount, not as HTTP rate-limit headers.

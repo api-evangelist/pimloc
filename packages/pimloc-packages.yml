@@ -1,0 +1,18 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.npmjs.com/package/@secure-redact/javascript-sdk
+packages:
+  - language: javascript
+    registry: npm
+    name: "@secure-redact/javascript-sdk"
+    version: 1.0.4
+    url: https://www.npmjs.com/package/@secure-redact/javascript-sdk
+    repository: https://github.com/pimloc/secure-redact-javascript-sdk
+    install: npm install @secure-redact/javascript-sdk
+    description: JavaScript/TypeScript SDK wrapper for the Secure Redact platform. Built and maintained by Pimloc.
+    license: ISC
+    official: true
+notes: >-
+  Only a first-party JavaScript/TypeScript SDK is published. No official Python
+  (PyPI 404), Maven, NuGet, Go, RubyGems, Packagist or crates.io client library
+  was found.

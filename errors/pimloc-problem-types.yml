@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/secureredact-openapi.yml
+format: custom-string
+envelope:
+  field: error
+  shape: '{ "error": "<message>" }'
+  note: >-
+    Secure Redact returns a flat JSON object with a single string "error" field
+    (null on success). This is not RFC 9457 application/problem+json.
+problems:
+  - status: 403
+    title: Invalid auth
+    example: '{ "error": "Invalid auth" }'
+    remediation: >-
+      Ensure client_id / client_secret are correct on the token endpoint, or that
+      a valid unexpired JWT bearer token is supplied on other endpoints.
+    source_operation: openapi/secureredact-openapi.yml#fetchToken
+  - status: 500
+    title: Server / conflict error
+    example: '{ "error": "User with that email already exists - Please try a different username" }'
+    remediation: >-
+      Occurs e.g. when creating a user whose username exists in another account;
+      choose a different username or retry.
+    source_operation: openapi/secureredact-openapi.yml#createUser

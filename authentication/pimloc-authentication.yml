@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.secureredact.co.uk
+docs: https://docs.secureredact.co.uk
+summary:
+  types: [http-basic, http-bearer]
+  model: token-exchange
+  description: >-
+    HTTP Basic authentication with a client_id / client_secret pair (generated
+    from the Secure Redact account page) is used only on the token endpoint to
+    obtain a short-lived JWT access token. That JWT bearer token authenticates
+    all other endpoints. Passing a username to the token endpoint yields a
+    user-scoped access token used for the Enterprise Flow.
+schemes:
+  - name: basicAuth
+    type: http
+    scheme: basic
+    used_on: /api/v3/token
+    credentials: client_id (username) + client_secret (password)
+    sources: [openapi/secureredact-openapi.yml]
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
+    used_on: all endpoints except /api/v3/token
+    sources: [openapi/secureredact-openapi.yml]
+token_endpoint: https://app.secureredact.co.uk/api/v3/token

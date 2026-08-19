@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Secure Redact Account Authentication API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/token",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Optional username to fetch a user-scoped access token (Enterprise Flow)."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Exchange your client_id / client_secret (sent as HTTP Basic auth) for a short-lived JWT access token used to authenticate all other requests. Optionally pass a username to obtain a user access token (Enterprise Flow)."
+        },
+        {
+          "info": {
+            "name": "Create user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/signup",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "username",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a new user to Secure Redact. Enterprise customers only."
+        },
+        {
+          "info": {
+            "name": "Login user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/login",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Log a user into the Secure Redact platform. Enterprise customers only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

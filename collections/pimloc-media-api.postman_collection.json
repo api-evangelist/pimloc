@@ -1,0 +1,1281 @@
+{
+  "item": [
+    {
+      "id": "6c02eb52-8aab-4753-b580-558981d2f51b",
+      "name": "Media",
+      "description": {
+        "content": "Upload, redact, download and manage media",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b6b1d981-a55d-4f7b-9361-15d1d789aa93",
+          "name": "Fetch medias",
+          "request": {
+            "name": "Fetch medias",
+            "description": {
+              "content": "Fetch a paginated list of media available to the user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_num",
+                  "value": "<integer>",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Items per page"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bfa0aa74-d59c-4d94-b555-e00a5dd61690",
+              "name": "Media list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_num",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e826c9c-6d8a-4e8b-bced-63136c93a8e4",
+          "name": "Upload media",
+          "request": {
+            "name": "Upload media",
+            "description": {
+              "content": "Add a video/image to the account either by a URL that Secure Redact can download from (e.g. an AWS S3 presigned URL) via form field media_path, or by uploading raw file data (multipart). Detection flags control which object classes are detected/redacted; state_callback and export_callback are webhook URLs the platform POSTs progress and export events to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "media_path",
+                  "value": "<string>",
+                  "description": "(Required) URL Secure Redact can download the media from (e.g. S3 presigned URL)."
+                },
+                {
+                  "disabled": false,
+                  "key": "video_tag",
+                  "value": "<string>",
+                  "description": "Name shown for the media in the UI."
+                },
+                {
+                  "disabled": false,
+                  "key": "increased_detection_accuracy",
+                  "value": "<boolean>",
+                  "description": "Slower but detects smaller objects. Defaults to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "state_callback",
+                  "value": "<string>",
+                  "description": "Webhook URL the system POSTs progress updates to."
+                },
+                {
+                  "disabled": false,
+                  "key": "export_callback",
+                  "value": "<string>",
+                  "description": "Webhook URL the exported media info is POSTed to after redaction."
+                },
+                {
+                  "disabled": false,
+                  "key": "export_token",
+                  "value": "<string>",
+                  "description": "Token authenticating requests made to export_callback."
+                },
+                {
+                  "disabled": false,
+                  "key": "detect_license_plates",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "detect_faces",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "transcribe_audio",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Project to upload the media to (Enterprise only)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sha512",
+                  "value": "<string>",
+                  "description": "Optional sha512 hash used to verify the received media matches."
+                },
+                {
+                  "disabled": false,
+                  "key": "detect_screens",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "detect_text",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "detect_people",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "detect_search",
+                  "value": "<boolean>",
+                  "description": "Index the media for free-form text search."
+                },
+                {
+                  "disabled": false,
+                  "key": "transcribe_language",
+                  "value": "<string>",
+                  "description": "ISO 639 language code to transcribe from into English."
+                },
+                {
+                  "disabled": false,
+                  "key": "default_redact",
+                  "value": "<boolean>",
+                  "description": "Default all detections to redacted."
+                },
+                {
+                  "disabled": false,
+                  "key": "investigate",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fast_investigate",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e28b46a8-c868-4578-abac-68fb39c20b90",
+              "name": "Media accepted for processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) URL Secure Redact can download the media from (e.g. S3 presigned URL).",
+                        "type": "text/plain"
+                      },
+                      "key": "media_path",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Name shown for the media in the UI.",
+                        "type": "text/plain"
+                      },
+                      "key": "video_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Slower but detects smaller objects. Defaults to false.",
+                        "type": "text/plain"
+                      },
+                      "key": "increased_detection_accuracy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Webhook URL the system POSTs progress updates to.",
+                        "type": "text/plain"
+                      },
+                      "key": "state_callback",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Webhook URL the exported media info is POSTed to after redaction.",
+                        "type": "text/plain"
+                      },
+                      "key": "export_callback",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Token authenticating requests made to export_callback.",
+                        "type": "text/plain"
+                      },
+                      "key": "export_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "detect_license_plates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "detect_faces",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "transcribe_audio",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Project to upload the media to (Enterprise only).",
+                        "type": "text/plain"
+                      },
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional sha512 hash used to verify the received media matches.",
+                        "type": "text/plain"
+                      },
+                      "key": "sha512",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "detect_screens",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "detect_text",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "detect_people",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Index the media for free-form text search.",
+                        "type": "text/plain"
+                      },
+                      "key": "detect_search",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ISO 639 language code to transcribe from into English.",
+                        "type": "text/plain"
+                      },
+                      "key": "transcribe_language",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Default all detections to redacted.",
+                        "type": "text/plain"
+                      },
+                      "key": "default_redact",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "investigate",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fast_investigate",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f698c8c-ebb1-4d76-9b2e-f6d7f7a52aba",
+          "name": "Fetch media info",
+          "request": {
+            "name": "Fetch media info",
+            "description": {
+              "content": "Get the status of a media item — which stage of the workflow it is in (e.g. uploaded, detected, completed).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0723bc68-3fbb-4ee7-91f1-22b6c12767f7",
+              "name": "Media status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa7f4e09-e8df-4d5a-a776-3e8ac4fcfc44",
+          "name": "Delete media",
+          "request": {
+            "name": "Delete media",
+            "description": {
+              "content": "Delete the media from the Secure Redact servers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3e3c064f-d105-46e7-b0ff-c85d9772fb79",
+              "name": "Deletion accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c421889-8074-4d33-999e-60176d37b38b",
+          "name": "Redact media",
+          "request": {
+            "name": "Redact media",
+            "description": {
+              "content": "Trigger redaction of a media item (Enterprise Flow). Only valid once the media status equals 'detected'.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id",
+                "redact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "enlarge_boxes",
+                  "value": "<number>",
+                  "description": "Float 0-1; percentage to enlarge all redaction boxes."
+                },
+                {
+                  "disabled": false,
+                  "key": "redact_audio",
+                  "value": "<boolean>",
+                  "description": "Whether to remove audio from redacted media."
+                },
+                {
+                  "disabled": false,
+                  "key": "blur",
+                  "value": "<string>",
+                  "description": "Blur type to apply."
+                },
+                {
+                  "disabled": false,
+                  "key": "blur_level",
+                  "value": "<integer>",
+                  "description": "How much blur to apply (100 = most)."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a4f99e32-27e9-4e1d-85b7-34d341c4bfb5",
+              "name": "Redaction started",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id",
+                    "redact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Float 0-1; percentage to enlarge all redaction boxes.",
+                        "type": "text/plain"
+                      },
+                      "key": "enlarge_boxes",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to remove audio from redacted media.",
+                        "type": "text/plain"
+                      },
+                      "key": "redact_audio",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Blur type to apply.",
+                        "type": "text/plain"
+                      },
+                      "key": "blur",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How much blur to apply (100 = most).",
+                        "type": "text/plain"
+                      },
+                      "key": "blur_level",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50a10c2c-2ba8-4d01-937b-de40036813bf",
+          "name": "Download media",
+          "request": {
+            "name": "Download media",
+            "description": {
+              "content": "Download the media once its status is 'completed'.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version_id",
+                  "value": "<string>",
+                  "description": "Specific version to download."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "061b0236-e622-4135-a33d-e20214c6808b",
+              "name": "Redacted media file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7405de77-059c-46f2-9898-b433062a42f1",
+          "name": "Fetch media audit",
+          "request": {
+            "name": "Fetch media audit",
+            "description": {
+              "content": "Fetch the audit log of the media — all actions taken on it (chain of custody).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id",
+                "audit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "521d3b8e-08d6-4cf1-a884-4e8234815df3",
+              "name": "Audit log",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17cc979a-d53d-43b6-8f95-3001bd10dcc7",
+          "name": "Download media transcript",
+          "request": {
+            "name": "Download media transcript",
+            "description": {
+              "content": "Download the media transcript. Available once media state is at least 'detected' and transcribe_audio was true on upload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id",
+                "transcript",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "redact_type",
+                  "value": "<string>",
+                  "description": "Which transcript redaction to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_type",
+                  "value": "<string>",
+                  "description": "Transcript file format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c4e1274-a502-4205-ae07-82f6559da947",
+              "name": "Transcript file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id",
+                    "transcript",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "redact_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92b85cfb-81bd-4b80-93be-cf8c1bc1c8f8",
+          "name": "Publish media",
+          "request": {
+            "name": "Publish media",
+            "description": {
+              "content": "Beta — set the published state of the media to true.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "media",
+                ":media_id",
+                "publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c41c91a6-762c-4161-a1af-877a88df4bb1",
+              "name": "Published",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "media",
+                    ":media_id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.secureredact.co.uk",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2c75964c-1eb5-4813-b4ab-f1770a7bd995",
+    "name": "Secure Redact Account Media API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Secure Redact is Pimloc's AI-powered platform for automated redaction of personally identifiable information (PII) from video, audio, images and documents — blurring faces, license plates, screens, text and full bodies. The v3 REST API lets you upload media by URL or file, monitor processing via status callbacks (webhooks) or polling, trigger redaction, and download the redacted media and audio transcripts. Two flows are supported: a Standard Flow (fully automated, no UI) and an Enterprise Flow (review/edit in the Secure Redact UI, with projects and users). Authentication is a token exchange: HTTP Basic (client_id / client_secret) on the token endpoint returns a short-lived JWT bearer token used on all other endpoints.\n\nContact Support:\n Name: Secure Redact Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,336 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Secure Redact Account Media API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Media",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch medias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/media",
+            "params": [
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Items per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a paginated list of media available to the user."
+        },
+        {
+          "info": {
+            "name": "Upload media",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/media",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "media_path",
+                  "value": ""
+                },
+                {
+                  "name": "video_tag",
+                  "value": ""
+                },
+                {
+                  "name": "increased_detection_accuracy",
+                  "value": ""
+                },
+                {
+                  "name": "state_callback",
+                  "value": ""
+                },
+                {
+                  "name": "export_callback",
+                  "value": ""
+                },
+                {
+                  "name": "export_token",
+                  "value": ""
+                },
+                {
+                  "name": "detect_license_plates",
+                  "value": ""
+                },
+                {
+                  "name": "detect_faces",
+                  "value": ""
+                },
+                {
+                  "name": "transcribe_audio",
+                  "value": ""
+                },
+                {
+                  "name": "project_id",
+                  "value": ""
+                },
+                {
+                  "name": "sha512",
+                  "value": ""
+                },
+                {
+                  "name": "detect_screens",
+                  "value": ""
+                },
+                {
+                  "name": "detect_text",
+                  "value": ""
+                },
+                {
+                  "name": "detect_people",
+                  "value": ""
+                },
+                {
+                  "name": "detect_search",
+                  "value": ""
+                },
+                {
+                  "name": "transcribe_language",
+                  "value": ""
+                },
+                {
+                  "name": "default_redact",
+                  "value": ""
+                },
+                {
+                  "name": "investigate",
+                  "value": ""
+                },
+                {
+                  "name": "fast_investigate",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a video/image to the account either by a URL that Secure Redact can download from (e.g. an AWS S3 presigned URL) via form field media_path, or by uploading raw file data (multipart). Detection flags control which object classes are detected/redacted; state_callback and export_callback are webhook URLs the platform POSTs progress and export events to."
+        },
+        {
+          "info": {
+            "name": "Fetch media info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the status of a media item — which stage of the workflow it is in (e.g. uploaded, detected, completed)."
+        },
+        {
+          "info": {
+            "name": "Delete media",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the media from the Secure Redact servers."
+        },
+        {
+          "info": {
+            "name": "Redact media",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id/redact",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "enlarge_boxes",
+                  "value": ""
+                },
+                {
+                  "name": "redact_audio",
+                  "value": ""
+                },
+                {
+                  "name": "blur",
+                  "value": ""
+                },
+                {
+                  "name": "blur_level",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Trigger redaction of a media item (Enterprise Flow). Only valid once the media status equals 'detected'."
+        },
+        {
+          "info": {
+            "name": "Download media",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id/download",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version to download."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download the media once its status is 'completed'."
+        },
+        {
+          "info": {
+            "name": "Fetch media audit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id/audit",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the audit log of the media — all actions taken on it (chain of custody)."
+        },
+        {
+          "info": {
+            "name": "Download media transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id/transcript/download",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "redact_type",
+                "value": "",
+                "type": "query",
+                "description": "Which transcript redaction to return."
+              },
+              {
+                "name": "file_type",
+                "value": "",
+                "type": "query",
+                "description": "Transcript file format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download the media transcript. Available once media state is at least 'detected' and transcribe_audio was true on upload."
+        },
+        {
+          "info": {
+            "name": "Publish media",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/media/:media_id/publish",
+            "params": [
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Beta — set the published state of the media to true."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

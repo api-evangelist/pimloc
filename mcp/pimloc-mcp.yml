@@ -2,41 +2,45 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/secureredact-openapi.yml
-note: >-
-  No official hosted/remote MCP server was found for Secure Redact. The tools
-  below are a candidate surface derived one-per-operation from the v3 OpenAPI as
-  a starting point for an MCP server.
+note: No official hosted/remote MCP server was found for Secure Redact. The tools below are a candidate
+  surface derived one-per-operation from the v3 OpenAPI as a starting point for an MCP server.
 server:
   name: secure-redact
   transport: http
 tools:
-  - name: fetch_token
-    description: Exchange client credentials for a JWT access token.
-    source_operation: openapi/secureredact-openapi.yml#fetchToken
-  - name: upload_media
-    description: Upload media by URL or file for redaction.
-    source_operation: openapi/secureredact-openapi.yml#uploadMedia
-  - name: fetch_media_info
-    description: Get the workflow status of a media item.
-    source_operation: openapi/secureredact-openapi.yml#fetchMediaInfo
-  - name: list_media
-    description: List media available to the user.
-    source_operation: openapi/secureredact-openapi.yml#listMedia
-  - name: redact_media
-    description: Trigger redaction of a detected media item.
-    source_operation: openapi/secureredact-openapi.yml#redactMedia
-  - name: download_media
-    description: Download completed redacted media.
-    source_operation: openapi/secureredact-openapi.yml#downloadMedia
-  - name: download_media_transcript
-    description: Download a media transcript.
-    source_operation: openapi/secureredact-openapi.yml#downloadMediaTranscript
-  - name: fetch_media_audit
-    description: Fetch the audit log (chain of custody) for a media item.
-    source_operation: openapi/secureredact-openapi.yml#fetchMediaAudit
-  - name: delete_media
-    description: Delete a media item from Secure Redact.
-    source_operation: openapi/secureredact-openapi.yml#deleteMedia
-  - name: fetch_account
-    description: Get account info including remaining processing minutes.
-    source_operation: openapi/secureredact-openapi.yml#fetchAccount
+- name: fetch_token
+  description: Exchange client credentials for a JWT access token.
+  source_operation: openapi/secureredact-openapi.yml#fetchToken
+- name: upload_media
+  description: Upload media by URL or file for redaction.
+  source_operation: openapi/secureredact-openapi.yml#uploadMedia
+- name: fetch_media_info
+  description: Get the workflow status of a media item.
+  source_operation: openapi/secureredact-openapi.yml#fetchMediaInfo
+- name: list_media
+  description: List media available to the user.
+  source_operation: openapi/secureredact-openapi.yml#listMedia
+- name: redact_media
+  description: Trigger redaction of a detected media item.
+  source_operation: openapi/secureredact-openapi.yml#redactMedia
+- name: download_media
+  description: Download completed redacted media.
+  source_operation: openapi/secureredact-openapi.yml#downloadMedia
+- name: download_media_transcript
+  description: Download a media transcript.
+  source_operation: openapi/secureredact-openapi.yml#downloadMediaTranscript
+- name: fetch_media_audit
+  description: Fetch the audit log (chain of custody) for a media item.
+  source_operation: openapi/secureredact-openapi.yml#fetchMediaAudit
+- name: delete_media
+  description: Delete a media item from Secure Redact.
+  source_operation: openapi/secureredact-openapi.yml#deleteMedia
+- name: fetch_account
+  description: Get account info including remaining processing minutes.
+  source_operation: openapi/secureredact-openapi.yml#fetchAccount
+deployment:
+  mode: none
+  verified: derived
+  tools: 10
+  checked: '2026-08-12'
+  source: catalog MCP census

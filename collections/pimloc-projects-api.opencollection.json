@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Secure Redact Account Projects API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/project",
+            "params": [
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a list of projects available to the user."
+        },
+        {
+          "info": {
+            "name": "Create project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/project",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "name",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new project."
+        },
+        {
+          "info": {
+            "name": "Delete project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a project."
+        },
+        {
+          "info": {
+            "name": "Fetch project medias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id/media",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the media belonging to a project."
+        },
+        {
+          "info": {
+            "name": "Fetch project audit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id/audit",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the audit log for a project."
+        },
+        {
+          "info": {
+            "name": "Fetch project users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id/user",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List the users of a project."
+        },
+        {
+          "info": {
+            "name": "Add user to project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id/user",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a user to a project."
+        },
+        {
+          "info": {
+            "name": "Remove user from project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id/user",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove a user from a project."
+        },
+        {
+          "info": {
+            "name": "Set project status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.secureredact.co.uk/api/v3/project/:project_id/status",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the status of a project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

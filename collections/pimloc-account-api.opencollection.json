@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Secure Redact Account API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Account info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.secureredact.co.uk/api/v3/account",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get account information, including the remaining processing minutes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

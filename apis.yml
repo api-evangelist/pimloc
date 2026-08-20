@@ -117,6 +117,8 @@ apis:
   humanURL: https://www.secureredact.ai/apis
   baseURL: https://app.secureredact.co.uk
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Secure Redact Account API
+  title: Secure Redact API
   version: v3
   x-generated: '2026-07-20'
   x-method: searched
@@ -14,21 +14,41 @@ servers:
 - url: https://app.secureredact.co.uk
   description: Secure Redact v3 production API
 tags:
-- name: Account
-  description: Account information
-paths:
-  /api/v3/account:
-    get:
-      operationId: fetchAccount
-      tags:
-      - Account
-      summary: Account info
-      description: Get account information, including the remaining processing minutes.
-      security:
-      - bearerAuth: []
+- name: Secure Redact API
+paths: {}
+webhooks:
+  stateCallback:
+    post:
+      operationId: stateCallbackEvent
+      summary: Media state callback
+      description: If a state_callback URL was supplied on upload, Secure Redact periodically POSTs media progress/status messages to it as the media moves through the workflow (e.g. detected, completed).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Media state/progress event payload.
       responses:
         '200':
-          description: Account info
+          description: Acknowledged
+      tags:
+      - Secure Redact API
+  exportCallback:
+    post:
+      operationId: exportCallbackEvent
+      summary: Export callback
+      description: If an export_callback URL was supplied on upload, Secure Redact POSTs the exported media info to it once redaction completes. Requests are authenticated with the supplied export_token.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Export/completed event payload.
+      responses:
+        '200':
+          description: Acknowledged
+      tags:
+      - Secure Redact API
 components:
   securitySchemes:
     basicAuth:

@@ -1,20 +1,29 @@
 {
   "provider": "pimloc",
   "sources": [
-    "pimloc-account-api-openapi.yml",
-    "pimloc-authentication-api-openapi.yml",
-    "pimloc-media-api-openapi.yml",
-    "pimloc-projects-api-openapi.yml"
+    "_original/secureredact-openapi.yml"
   ],
   "outputs": [
     "pimloc-account-api-openapi.yml",
     "pimloc-authentication-api-openapi.yml",
     "pimloc-media-api-openapi.yml",
-    "pimloc-projects-api-openapi.yml"
+    "pimloc-projects-api-openapi.yml",
+    "pimloc-secure-redact-api-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "secureredact-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "secureredact-openapi.yml: tagged webhooks POST stateCallback -> Secure Redact API",
+    "secureredact-openapi.yml: tagged webhooks POST exportCallback -> Secure Redact API",
+    "secureredact-openapi.yml: declared missing tag: Secure Redact API"
+  ],
+  "skipped": [
+    "pimloc-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pimloc-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pimloc-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pimloc-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

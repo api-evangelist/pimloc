@@ -145,6 +145,16 @@ apis:
     url: asyncapi/pimloc-secureredact-asyncapi.yml
   - type: Authentication
     url: authentication/pimloc-authentication.yml
+- aid: pimloc:pimloc-secure-redact-api-api
+  name: Pimloc Secure Redact API
+  description: The Secure Redact API API from Pimloc — 0 operation(s) for secure redact api.
+  humanURL: https://www.secureredact.ai/apis
+  baseURL: https://app.secureredact.co.uk
+  tags:
+  - Secure Redact API
+  properties:
+  - type: OpenAPI
+    url: openapi/pimloc-secure-redact-api-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/pimloc-agentic-access.yml

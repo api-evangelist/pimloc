@@ -5,7 +5,7 @@ info:
   x-generated: '2026-07-20'
   x-method: searched
   x-source: https://docs.secureredact.co.uk (public Postman collection "Secure Redact API - v3")
-  description: 'Secure Redact is Pimloc''s AI-powered platform for automated redaction of personally identifiable information (PII) from video, audio, images and documents — blurring faces, license plates, screens, text and full bodies. The v3 REST API lets you upload media by URL or file, monitor processing via status callbacks (webhooks) or polling, trigger redaction, and download the redacted media and audio transcripts. Two flows are supported: a Standard Flow (fully automated, no UI) and an Enterprise Flow (review/edit in the Secure Redact UI, with projects and users). Authentication is a token exchange: HTTP Basic (client_id / client_secret) on the token endpoint returns a short-lived JWT bearer token used on all other endpoints.'
+  description: Secure Redact is Pimloc's AI-powered platform for automated redaction of personally identifiable information (PII) from video, audio, images and documents — blurring faces, license plates, screens, text and full bodies.
   contact:
     name: Secure Redact Support
     url: https://www.secureredact.ai/contact-us

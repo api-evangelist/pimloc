@@ -18,12 +18,14 @@
     "secureredact-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "secureredact-openapi.yml: tagged webhooks POST stateCallback -> Secure Redact API",
     "secureredact-openapi.yml: tagged webhooks POST exportCallback -> Secure Redact API",
-    "secureredact-openapi.yml: declared missing tag: Secure Redact API"
+    "secureredact-openapi.yml: declared missing tag: Secure Redact API",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "pimloc-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "pimloc-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "pimloc-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "pimloc-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+    "pimloc-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pimloc-secure-redact-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

@@ -1,0 +1,26 @@
+slug: pimloc
+provider: Pimloc
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Media
+  spec_file: pimloc-media-api-openapi.yml
+  capability_id: BC-130.50
+  capability_id_l1: BC-130
+  capability_name: Privacy & Data Protection Management
+  confidence: 0.78
+  evidence: POST /api/v3/media/{media_id}/redact  redactMedia  Redact media
+  reason: The operations upload media and then redact it, with an audit trail ('Fetch media audit') and
+    transcript export. Per the spec description this is 'automated redaction of personally identifiable
+    information (PII)' to meet GDPR/CCPA obligations, which realises privacy and data-protection management.
+    Some risk that a grader would treat this as generic content/asset handling rather than a privacy capability.

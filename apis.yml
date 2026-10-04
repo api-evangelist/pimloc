@@ -158,6 +158,9 @@ apis:
   - type: OpenAPI
     url: openapi/pimloc-secure-redact-api-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/pimloc-capability-edges.yml
+  name: Pimloc Business Capability Map
 - type: AgenticAccess
   url: agentic-access/pimloc-agentic-access.yml
 - type: DomainSecurity

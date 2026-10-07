@@ -1,0 +1,53 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://www.secureredact.ai/pricing
+sources:
+- https://www.secureredact.ai/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+  managed_tier: BASIC
+published: true
+note: Credit-based plans with annual discounts (£49|$65, £89|$119, £119|$159 per month billed annually);
+  Enterprise is negotiated.
+plan_count: 5
+plans:
+- name: Free Trial
+  price_text: Start with a Free Trial
+  period: one-time
+  unit: credit
+  included_quota: 10 credits
+  overage: Top up anytime at £7 | $9 per credit
+- name: BASIC
+  price_text: £59 | $79 per month
+  period: month
+  unit: credit
+  included_quota: 10 credits
+  overage: Top up at £6.50 | $8 per credit
+- name: PRO
+  price_text: £99 | $133 per month
+  period: month
+  unit: credit
+  included_quota: 20 credits
+  overage: Top up at £5.50 | $7 per credit
+- name: ADVANCED
+  price_text: £139 | $188 per month
+  period: month
+  unit: credit
+  included_quota: 30 credits
+  overage: Top up at £5 | $6 per credit
+- name: Secure Redact Enterprise
+  price_text: Contact sales
+  period: none
+  included_quota: Packages start at 60 credits per month on a 12-month contract
+rate_limit_statements:
+- Self-serve plans go up to 30 credits.
+- Top up credits are valid for 6 months.

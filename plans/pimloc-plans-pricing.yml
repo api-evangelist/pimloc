@@ -51,3 +51,50 @@ plans:
 rate_limit_statements:
 - Self-serve plans go up to 30 credits.
 - Top up credits are valid for 6 months.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units:
+  - credit
+  plans:
+  - name: Free Trial
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - one-time
+  - name: BASIC
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: PRO
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: ADVANCED
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Secure Redact Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
